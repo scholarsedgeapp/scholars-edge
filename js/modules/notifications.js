@@ -447,7 +447,9 @@ var NotificationsModule = (function () {
     var name     = Storage.getStudentName() || 'Krystal';
     var correct  = detail.correct  || 0;
     var total    = detail.total    || 0;
-    var strategy = detail.strategy || '';
+    // drill-engine.js dispatches the strategy code as `code`, not `strategy` —
+    // this was reading the wrong field and always fell back to generic phrasing.
+    var strategy = detail.code ? ('Strategy ' + detail.code) : '';
     var pct      = total > 0 ? Math.round((correct / total) * 100) : 0;
 
     var msg;
@@ -482,7 +484,8 @@ var NotificationsModule = (function () {
     if (!isEnabled('frustration_session')) return;
     var detail   = (e && e.detail) || {};
     var name     = Storage.getStudentName() || 'Krystal';
-    var strategy = detail.strategy || '';
+    // Same field-name fix as onDrillComplete — drill-engine.js sends `code`.
+    var strategy = detail.code ? ('Strategy ' + detail.code) : '';
 
     send('frustration_session', {
       subject: '💙 Tough session today for ' + name,

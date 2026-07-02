@@ -1388,6 +1388,12 @@ const ImportModule = (() => {
 
     const isFirstImport = !Storage.isFirstImportComplete();
 
+    // Snapshot bands BEFORE this import overwrites them — notifications.js's
+    // onImportComplete reads detail.previousBands to detect band movement, but
+    // nothing was ever sending it, so cur > prev was always comparing against
+    // undefined and the Band Movement Alert notification could never fire.
+    const previousBands = Storage.getBands();
+
     // 1. Assign bands from scores and wrong answers
     const bandProfile = computeBandProfile(data);
 
@@ -1434,7 +1440,12 @@ const ImportModule = (() => {
     if (badge) Storage.addPoints(100);
 
     // 7. Fire import event
-    document.dispatchEvent(new CustomEvent('importComplete', { detail: { record: saved, isFirstImport } }));
+    // testLabel is included here (not just `record`) because notifications.js's
+    // onImportComplete reads detail.testLabel directly — without it, score-improvement
+    // notifications always fell back to generic "her latest Bluebook test" phrasing.
+    document.dispatchEvent(new CustomEvent('importComplete', {
+      detail: { record: saved, isFirstImport, testLabel: formatTestLabel(saved.testSource), previousBands }
+    }));
 
     // 8. Show success screen
     setTimeout(() => {
