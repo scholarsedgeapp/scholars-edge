@@ -822,12 +822,13 @@ const App = (() => {
           <div class="card mb-6">
             <div class="card-header"><h3>Data Management</h3></div>
             <div class="card-body">
+              <input type="file" id="restore-backup-input" accept=".json" style="display:none" onchange="(function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(ev){var ok=Storage.importData(ev.target.result);if(ok){UI.toast('Backup restored! Reloading...','success','Restore Complete',3000);setTimeout(function(){location.reload();},2000);}else{UI.toast('Could not read that file. Make sure it\'s a Scholar\'s Edge backup.','error','Restore Failed');};};r.readAsText(f);})(event)">
               <div class="d-flex gap-3 flex-wrap">
                 <button class="btn btn-outline" onclick="Storage.exportData()">
                   <i data-lucide="download" style="width:16px;height:16px;"></i>
                   Export Backup
                 </button>
-                <button class="btn btn-outline" onclick="(function(){var i=document.createElement('input');i.type='file';i.accept='.json';i.style.display='none';document.body.appendChild(i);i.onchange=function(e){var f=e.target.files[0];if(!f){document.body.removeChild(i);return;}var r=new FileReader();r.onload=function(ev){var ok=Storage.importData(ev.target.result);document.body.removeChild(i);if(ok){UI.toast('Backup restored! Reloading...','success','Restore Complete',3000);setTimeout(function(){location.reload();},2000);}else{UI.toast('Could not read that file. Make sure it\'s a Scholar\'s Edge backup.','error','Restore Failed');}};r.readAsText(f);};i.click();})()">
+                <button class="btn btn-outline" onclick="document.getElementById('restore-backup-input').click()">
                   <i data-lucide="upload" style="width:16px;height:16px;"></i>
                   Restore Backup
                 </button>
