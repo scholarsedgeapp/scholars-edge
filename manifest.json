@@ -2,7 +2,7 @@
   "name": "Scholar's Edge",
   "short_name": "Scholar's Edge",
   "description": "SAT & PSAT prep built around your actual scores.",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#1B2A4A",
