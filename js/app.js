@@ -822,16 +822,16 @@ const App = (() => {
           <div class="card mb-6">
             <div class="card-header"><h3>Data Management</h3></div>
             <div class="card-body">
-              <input type="file" id="restore-backup-input" accept=".json" style="display:none" onchange="(function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(ev){var ok=Storage.importData(ev.target.result);if(ok){UI.toast('Backup restored! Reloading...','success','Restore Complete',3000);setTimeout(function(){location.reload();},2000);}else{UI.toast('Could not read that file. Make sure it\'s a Scholar\'s Edge backup.','error','Restore Failed');};};r.readAsText(f);})(event)">
+              <input type="file" id="restore-backup-input" accept=".json" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;" onchange="(function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(ev){var ok=Storage.importData(ev.target.result);if(ok){UI.toast('Backup restored! Reloading...','success','Restore Complete',3000);setTimeout(function(){location.reload();},2000);}else{UI.toast('Could not read that file. Make sure it\'s a Scholar\'s Edge backup.','error','Restore Failed');}};r.readAsText(f);})(event)">
               <div class="d-flex gap-3 flex-wrap">
                 <button class="btn btn-outline" onclick="Storage.exportData()">
                   <i data-lucide="download" style="width:16px;height:16px;"></i>
                   Export Backup
                 </button>
-                <button class="btn btn-outline" onclick="document.getElementById('restore-backup-input').click()">
+                <label for="restore-backup-input" class="btn btn-outline" style="cursor:pointer;margin:0;">
                   <i data-lucide="upload" style="width:16px;height:16px;"></i>
                   Restore Backup
-                </button>
+                </label>
                 <button class="btn btn-ghost text-error"
                   onclick="UI.confirm({title:'Reset App',message:'This permanently deletes all your progress, scores, and settings. This cannot be undone.',confirmText:'Yes, Reset Everything',danger:true}).then(ok=>{if(ok){Storage.clear();try{localStorage.clear();}catch(e){}location.reload();}})">
                   <i data-lucide="trash-2" style="width:16px;height:16px;"></i>
