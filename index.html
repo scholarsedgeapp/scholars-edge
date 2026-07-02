@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Scholar's Edge — Personalized SAT prep for Krystal. Think Sharp. Score Higher.">
+  <title>Scholar's Edge</title>
+
+  <!-- ── FONTS ── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- ── CSS ── -->
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+
+  <!-- ── FAVICON (inline SVG) ── -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231B2A4A'/><text x='50%25' y='60%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial Black' font-size='18' fill='%23F4B942'>SE</text></svg>">
+
+  <!-- ── PWA ── -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Scholar's Edge">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="theme-color" content="#1B2A4A">
+</head>
+
+<body>
+
+<!-- ── ARIA LIVE REGION ── -->
+<div id="aria-announcer" class="d-none" aria-live="polite" aria-atomic="true"></div>
+
+<!-- ── APP WRAPPER ── -->
+<div id="app-wrapper">
+
+  <!-- ═══════════════════════════════════════════
+       SIDEBAR NAVIGATION
+  ═══════════════════════════════════════════ -->
+  <nav id="sidebar" aria-label="Main navigation">
+
+    <!-- Logo -->
+    <a class="sidebar-logo" href="#/dashboard" aria-label="Scholar's Edge home">
+      <div class="logo-icon">SE</div>
+      <div class="logo-text">
+        <div class="brand-name">Scholar's Edge</div>
+        <div class="brand-tagline">Think Sharp. Score Higher.</div>
+      </div>
+    </a>
+
+    <!-- Student Badge -->
+    <div class="sidebar-student" aria-label="Student">
+      <div class="student-avatar" id="student-avatar">K</div>
+      <div class="student-info">
+        <div class="student-name" id="student-name-sidebar">Krystal</div>
+        <div class="student-level" id="student-level-sidebar">Scholar</div>
+      </div>
+    </div>
+
+    <!-- Nav -->
+    <div class="sidebar-nav" role="menu">
+
+      <!-- Overview -->
+      <div class="nav-group">
+        <div class="nav-group-label">Overview</div>
+        <button class="nav-item" data-route="/dashboard" data-tooltip="Dashboard">
+          <span class="nav-item-icon"><i data-lucide="layout-dashboard"></i></span>
+          <span class="nav-item-label">Dashboard</span>
+        </button>
+      </div>
+
+      <!-- Getting Started -->
+      <div class="nav-group">
+        <div class="nav-group-label">Getting Started</div>
+        <button class="nav-item" data-route="/orientation" data-tooltip="Orientation">
+          <span class="nav-item-icon"><i data-lucide="compass"></i></span>
+          <span class="nav-item-label">Orientation</span>
+          <span class="nav-item-badge badge-new" id="badge-orientation">Start</span>
+        </button>
+        <button class="nav-item" data-route="/import" data-tooltip="Import Results">
+          <span class="nav-item-icon"><i data-lucide="upload-cloud"></i></span>
+          <span class="nav-item-label">Import Results</span>
+        </button>
+      </div>
+
+      <!-- Training -->
+      <div class="nav-group">
+        <div class="nav-group-label">Training</div>
+        <button class="nav-item locked" data-route="/score-bands" data-tooltip="Score Bands"
+          data-lock-msg="Import Bluebook Test 7 to unlock Score Bands.">
+          <span class="nav-item-icon"><i data-lucide="bar-chart-2"></i></span>
+          <span class="nav-item-label">Score Bands</span>
+          <i data-lucide="lock" class="nav-lock-icon"></i>
+        </button>
+        <button class="nav-item locked" data-route="/strategy-course" data-tooltip="Strategy Course"
+          data-lock-msg="Import your first Bluebook test to unlock the Strategy Course.">
+          <span class="nav-item-icon"><i data-lucide="book-open"></i></span>
+          <span class="nav-item-label">Strategy Course</span>
+          <i data-lucide="lock" class="nav-lock-icon"></i>
+        </button>
+        <button class="nav-item locked" data-route="/drill-engine" data-tooltip="Drill Engine"
+          data-lock-msg="Import your first Bluebook test to unlock the Drill Engine.">
+          <span class="nav-item-icon"><i data-lucide="zap"></i></span>
+          <span class="nav-item-label">Drill Engine</span>
+          <i data-lucide="lock" class="nav-lock-icon"></i>
+        </button>
+      </div>
+
+      <!-- Assessment -->
+      <div class="nav-group">
+        <div class="nav-group-label">Assessment</div>
+        <button class="nav-item locked" data-route="/skills-check" data-tooltip="Skills Check"
+          data-lock-msg="Import your first Bluebook test to unlock Skills Check.">
+          <span class="nav-item-icon"><i data-lucide="clipboard-check"></i></span>
+          <span class="nav-item-label">Skills Check</span>
+          <i data-lucide="lock" class="nav-lock-icon"></i>
+        </button>
+        <button class="nav-item" data-route="/study-planner" data-tooltip="Study Planner">
+          <span class="nav-item-icon"><i data-lucide="calendar"></i></span>
+          <span class="nav-item-label">Study Planner</span>
+        </button>
+        <button class="nav-item locked" data-route="/performance" data-tooltip="Performance"
+          data-lock-msg="Import your first Bluebook test to unlock Performance.">
+          <span class="nav-item-icon"><i data-lucide="trending-up"></i></span>
+          <span class="nav-item-label">Performance</span>
+          <i data-lucide="lock" class="nav-lock-icon"></i>
+        </button>
+      </div>
+
+    </div><!-- /sidebar-nav -->
+
+    <!-- Footer nav -->
+    <div class="sidebar-footer">
+      <button class="nav-item" data-route="/settings" data-tooltip="Settings">
+        <span class="nav-item-icon"><i data-lucide="settings"></i></span>
+        <span class="nav-item-label">Settings</span>
+      </button>
+      <button class="nav-item" data-route="/pricing" data-tooltip="Pricing">
+        <span class="nav-item-icon"><i data-lucide="gem"></i></span>
+        <span class="nav-item-label">Pricing</span>
+      </button>
+    </div>
+
+  </nav><!-- /sidebar -->
+
+  <!-- Backdrop for mobile sidebar -->
+  <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN CONTENT
+  ═══════════════════════════════════════════ -->
+  <main id="main-content">
+
+    <!-- TOP BAR -->
+    <header id="top-bar">
+      <div class="topbar-left">
+        <!-- Sidebar toggle button -->
+        <button class="sidebar-toggle" aria-label="Toggle navigation" aria-expanded="true">
+          <i data-lucide="menu" style="width:20px;height:20px;"></i>
+        </button>
+
+        <!-- Breadcrumb -->
+        <nav class="page-breadcrumb" aria-label="Breadcrumb">
+          <span>Scholar's Edge</span>
+          <span style="color:var(--color-neutral-300);">/</span>
+          <span class="current-page">Dashboard</span>
+        </nav>
+      </div>
+
+      <div class="topbar-right">
+        <!-- Streak -->
+        <div class="topbar-streak" title="Study streak">
+          <span>🔥</span>
+          <span id="topbar-streak-count">0 days</span>
+        </div>
+
+        <!-- Guarantee status -->
+        <button class="topbar-guarantee" id="topbar-guarantee-btn" title="Guarantee status">
+          <i data-lucide="shield-check" style="width:14px;height:14px;"></i>
+          <span id="topbar-guarantee-text">Guarantee</span>
+        </button>
+
+        <!-- Notifications bell -->
+        <button class="icon-btn" aria-label="Notifications" title="Notifications"
+          onclick="Router.navigate('/notifications')">
+          <i data-lucide="bell" style="width:18px;height:18px;"></i>
+          <span class="notification-dot" id="notification-dot" style="display:none;"></span>
+        </button>
+      </div>
+    </header><!-- /top-bar -->
+
+    <!-- PAGE CONTENT — Router renders here -->
+    <div id="page-container" role="main" aria-live="polite">
+      <!-- Loading skeleton while app boots -->
+      <div style="padding:var(--content-padding);">
+        <div class="skeleton skeleton-title mb-4" style="width:40%;height:2em;"></div>
+        <div class="skeleton skeleton-text mb-2" style="width:60%;"></div>
+        <div class="skeleton skeleton-text mb-6" style="width:45%;"></div>
+        <div class="grid-3">
+          <div class="skeleton skeleton-card"></div>
+          <div class="skeleton skeleton-card"></div>
+          <div class="skeleton skeleton-card"></div>
+        </div>
+      </div>
+    </div>
+
+  </main><!-- /main-content -->
+
+</div><!-- /app-wrapper -->
+
+<!-- ═══════════════════════════════════════════
+     GLOBAL UI LAYERS
+═══════════════════════════════════════════ -->
+
+<!-- Toast container -->
+<div id="toast-container" aria-live="assertive" aria-atomic="false"></div>
+
+<!-- Modal overlay -->
+<div id="modal-overlay" role="presentation"></div>
+
+<!-- Loading overlay -->
+<div id="loading-overlay">
+  <div class="spinner spinner-primary spinner-lg"></div>
+  <div class="loading-text">Loading...</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCRIPTS — order matters
+═══════════════════════════════════════════ -->
+
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<!-- EmailJS (Module 11) -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<!-- App modules — load order: storage → ui → router → modules → app -->
+<script src="js/storage.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/router.js"></script>
+<script src="js/modules/orientation.js"></script>
+<script src="js/modules/import.js"></script>
+<script src="js/modules/score-bands.js"></script>
+<script src="js/modules/strategy-course.js"></script>
+<script src="js/modules/drill-engine.js"></script>
+<script src="js/modules/skills-check.js"></script>
+<script src="js/modules/study-planner.js"></script>
+<script src="js/modules/performance.js"></script>
+<script src="js/modules/report-card.js"></script>
+<script src="js/modules/notifications.js"></script>
+<script src="js/app.js"></script>
+
+<!-- Post-boot: update sidebar student info -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Update sidebar student info from storage
+    const name = Storage.getStudentName();
+    const nameEl = document.getElementById('student-name-sidebar');
+    const levelEl = document.getElementById('student-level-sidebar');
+    const avatarEl = document.getElementById('student-avatar');
+    const streakEl = document.getElementById('topbar-streak-count');
+
+    if (nameEl) nameEl.textContent = name;
+    if (avatarEl) avatarEl.textContent = name.charAt(0).toUpperCase();
+
+    const g = Storage.getGamification();
+    if (levelEl) levelEl.textContent = g.level || 'Scholar';
+
+    const streak = Storage.getPath('progress.streakDays', 0);
+    if (streakEl) streakEl.textContent = `${streak} day${streak !== 1 ? 's' : ''}`;
+
+    // Hide orientation badge once orientation is done
+    const orientationDone = Storage.isOrientationComplete();
+    const orientBadge = document.getElementById('badge-orientation');
+    if (orientBadge && orientationDone) orientBadge.style.display = 'none';
+
+    // Init Lucide icons for sidebar
+    lucide.createIcons({ attrs: { 'stroke-width': '1.75' } });
+  });
+</script>
+
+<!-- ── PWA SERVICE WORKER ── -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
+  }
+</script>
+
+</body>
+</html>
