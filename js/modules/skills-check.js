@@ -111,7 +111,11 @@ var SkillsCheckModule = (function () {
       var selected = shuffled.slice(0, count);
 
       selected.forEach(function (qi) {
-        questions.push({ code: code, state: state, qIdx: qi, q: pool[qi] });
+        // Shuffle choice order per serve — the stored bank is heavily
+        // position-biased, so serving q.c as-is leaks the answer position.
+        // The shuffled copy flows through submitAnswer/render/answers intact;
+        // qIdx (pool index for usedQ tracking) is unaffected.
+        questions.push({ code: code, state: state, qIdx: qi, q: DrillEngineModule.shuffleChoices(pool[qi]) });
       });
 
       strategyMap[code] = { state: state, count: selected.length, correct: 0, qIndices: selected };

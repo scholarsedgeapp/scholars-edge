@@ -1186,7 +1186,7 @@ const DrillEngineModule = (() => {
     return DE_QUESTIONS[code] ? DE_QUESTIONS[code].slice() : [];
   }
 
-  return { render: render, reset: reset, getQuestions: getQuestions };
+  return { render: render, reset: reset, getQuestions: getQuestions, shuffleChoices: shuffleChoices };
 
 })();
 window.DrillEngineModule = DrillEngineModule;
