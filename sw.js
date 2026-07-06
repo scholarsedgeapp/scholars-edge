@@ -8,7 +8,10 @@
 // the service worker never finished installing. Cache version bumped so
 // devices that already have a broken/empty v1 cache pick up a fresh install
 // instead of being stuck on it.
-const CACHE = 'scholars-edge-v2';
+// v3: cache bump to ship the app.js change (navigator.storage.persist() at
+// init) — app.js is in the cache-first SHELL list, so devices only pick it
+// up when the cache version changes.
+const CACHE = 'scholars-edge-v3';
 const SHELL = [
   './',
   'index.html',
