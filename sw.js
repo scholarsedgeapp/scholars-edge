@@ -12,7 +12,10 @@
 // init) — app.js is in the cache-first SHELL list, so devices only pick it
 // up when the cache version changes.
 // v4: ships the app.js RE-KEY notice modal (v3 was already deployed).
-const CACHE = 'scholars-edge-v4';
+// v5: re-ship — the v3/v4 app.js uploads landed at the repo ROOT instead of
+// js/app.js (index.html loads js/app.js), so devices cached the old shell
+// under v4. v5 forces a refetch once js/app.js is actually replaced.
+const CACHE = 'scholars-edge-v5';
 const SHELL = [
   './',
   'index.html',
