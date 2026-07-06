@@ -1429,6 +1429,25 @@ const App = (() => {
       }
     });
 
+    // One-time RE-KEY notice (flag set by the drill-engine migration when it
+    // resets real progress). Cleared on dismissal, so a missed tap re-shows
+    // it next launch — the reset must never read as silent data loss.
+    if (Storage.getPath('migrations.rekey_notice_pending', false)) {
+      UI.modal({
+        title: 'Drill Engine Update 🎯',
+        body: '<p style="line-height:1.6;">We upgraded the question banks for 10 strategies — the old questions weren\'t teaching those skills as sharply as they should. Your levels on those 10 reset to Level 1 so your mastery reflects the new content. Everything else — your points, badges, streak, and test history — is exactly where you left it. Nothing was lost.</p>',
+        footer: '<button class="btn btn-primary" id="rekey-notice-ok">Got it</button>',
+        size: 'sm',
+      });
+      setTimeout(() => {
+        const ok = document.getElementById('rekey-notice-ok');
+        if (ok) ok.addEventListener('click', () => {
+          Storage.setPath('migrations.rekey_notice_pending', false);
+          UI.closeModal();
+        });
+      }, 80);
+    }
+
     console.log('[App] Scholar\'s Edge initialized. Student:', Storage.getStudentName());
   }
 

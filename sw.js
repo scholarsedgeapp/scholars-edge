@@ -11,7 +11,8 @@
 // v3: cache bump to ship the app.js change (navigator.storage.persist() at
 // init) — app.js is in the cache-first SHELL list, so devices only pick it
 // up when the cache version changes.
-const CACHE = 'scholars-edge-v3';
+// v4: ships the app.js RE-KEY notice modal (v3 was already deployed).
+const CACHE = 'scholars-edge-v4';
 const SHELL = [
   './',
   'index.html',
