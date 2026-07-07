@@ -66,7 +66,7 @@ const DrillEngineModule = (() => {
     'Universal':        ['U1','U2','U3','U4','U5','U6','U7'],
     'Reading Elim.':    ['R1','R2','R3','R4','R5','R6','R7','R8'],
     'Reading Passage':  ['R9','R10','R11','R12','R13'],
-    'Grammar':          ['G1','G2','G3','G4','G5','G6','G7'],
+    'Grammar':          ['G1','G2','G3','G4','G5','G6','G7','G8','G9','G10'],
     'Math Core':        ['M1','M2','M3','M4','M5','M6','M7','M8','M9'],
     'Desmos':           ['M10','M11','M12','M13','M14','M15'],
     'CLT':              ['C1','C2','C3','C4'],
