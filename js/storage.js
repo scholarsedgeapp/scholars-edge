@@ -56,9 +56,10 @@ const Storage = (() => {
       // Reading Passage
       R9: 'not_started', R10: 'not_started', R11: 'not_started',
       R12: 'not_started', R13: 'not_started',
-      // Grammar
+      // Grammar (G8–G10 added 2026-07-07 — 54-strategy taxonomy)
       G1: 'not_started', G2: 'not_started', G3: 'not_started', G4: 'not_started',
       G5: 'not_started', G6: 'not_started', G7: 'not_started',
+      G8: 'not_started', G9: 'not_started', G10: 'not_started',
       // Math Core
       M1: 'not_started', M2: 'not_started', M3: 'not_started', M4: 'not_started',
       M5: 'not_started', M6: 'not_started', M7: 'not_started', M8: 'not_started', M9: 'not_started',
@@ -166,6 +167,9 @@ const Storage = (() => {
       },
       // Anthropic API key for AI inference
       anthropicApiKey: '',
+      // Strategy Course lesson order: 'fixed' (designed sequence) or
+      // 'weakest_first' (sections after Universal ordered by band weakness)
+      courseOrder: 'fixed',
       // UI preferences
       sidebarCollapsed: false,
     },

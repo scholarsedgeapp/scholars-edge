@@ -874,6 +874,15 @@ const App = (() => {
               </select>
             </div>
             <div class="form-group">
+              <label class="form-label">Course order</label>
+              <select class="form-select"
+                onchange="Storage.updateSettings({courseOrder:this.value}); UI.toast('Course order saved.', 'success', '', 1500);">
+                <option value="fixed" ${(settings.courseOrder || 'fixed') === 'fixed' ? 'selected' : ''}>Fixed sequence (recommended)</option>
+                <option value="weakest_first" ${settings.courseOrder === 'weakest_first' ? 'selected' : ''}>Weakest section first</option>
+              </select>
+              <div class="form-hint">Fixed follows the designed course path. Weakest-first reorders the sections after Universal by your score bands.</div>
+            </div>
+            <div class="form-group">
               <label class="form-label">Daily reminder time</label>
               <input type="time" class="form-input"
                 value="${settings.dailyReminderTime || '18:00'}"
@@ -918,7 +927,7 @@ const App = (() => {
         <h1 style="color:var(--color-primary);margin-bottom:var(--space-3);">Invest in a Higher Score</h1>
         <p style="color:var(--color-neutral-600);max-width:540px;margin:0 auto;line-height:var(--lh-relaxed);">
           Built for CC homeschool families who are serious about SAT prep.
-          Every plan includes the full app — AI drill engine, 51 strategies, score band tracking, and parent notifications.
+          Every plan includes the full app — AI drill engine, 54 strategies, score band tracking, and parent notifications.
         </p>
       </div>
 
@@ -957,7 +966,7 @@ const App = (() => {
           </div>
           <ul style="list-style:none;margin-bottom:var(--space-6);display:flex;flex-direction:column;gap:var(--space-3);flex:1;">
             ${_pricingFeature('Full access to every feature')}
-            ${_pricingFeature('All 51 strategies unlocked')}
+            ${_pricingFeature('All 54 strategies unlocked')}
             ${_pricingFeature('AI Drill Engine active')}
             ${_pricingFeature('Score bands + performance charts')}
             ${_pricingFeature('Parent email notifications')}
@@ -1165,7 +1174,7 @@ const App = (() => {
             </thead>
             <tbody>
               ${_comparisonRow('Adapts to your actual Bluebook test results', true, false)}
-              ${_comparisonRow('51 categorized strategies (not just tips)', true, false)}
+              ${_comparisonRow('54 categorized strategies (not just tips)', true, false)}
               ${_comparisonRow('Skill Band Engine — identifies your exact gaps', true, false)}
               ${_comparisonRow('AI drill engine that diagnoses why you\'re missing questions', true, false)}
               ${_comparisonRow('Trap profile — knows your personal test-taking blindspots', true, false)}
