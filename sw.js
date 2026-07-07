@@ -15,7 +15,10 @@
 // v5: re-ship — the v3/v4 app.js uploads landed at the repo ROOT instead of
 // js/app.js (index.html loads js/app.js), so devices cached the old shell
 // under v4. v5 forces a refetch once js/app.js is actually replaced.
-const CACHE = 'scholars-edge-v5';
+// v6: Batch 0 (2026-07-07) — storage.js (G8–G10 mastery keys, courseOrder
+// setting) and app.js (course-order control, 54-strategy strings) are both
+// cache-first SHELL files, so the bump is required for devices to fetch them.
+const CACHE = 'scholars-edge-v6';
 const SHELL = [
   './',
   'index.html',
