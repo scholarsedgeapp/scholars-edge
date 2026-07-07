@@ -375,7 +375,7 @@ var ReportCardModule = (function () {
     // ════════════════════════════════════════════════════════
 
     // ── STRATEGY MASTERY CHECKLIST ───────────────────────
-    rpt.appendChild(secLabel('Strategy Mastery Checklist (51 Strategies)'));
+    rpt.appendChild(secLabel('Strategy Mastery Checklist (54 Strategies)'));
 
     var stratGrid = el('div','display:grid;grid-template-columns:repeat(3,1fr);gap:1px 10px;margin-bottom:10px;');
     STRATEGY_SECTIONS.forEach(function(sec) {

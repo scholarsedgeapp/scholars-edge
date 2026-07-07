@@ -109,6 +109,16 @@ const DrillEngineModule = (() => {
 
   // ── ENGINE ─────────────────────────────────────────────── //
 
+  // Lesson-completion gate (Batch 0, 2026-07-07): a strategy is drillable
+  // only after its Strategy Course lesson is complete — i.e. the lesson
+  // mini-drill passed at 80%+, which sets strategyMastery to 'developing'
+  // (or beyond). Pure function of the canonical mastery state: no new
+  // storage keys, survives backup/restore, nothing to migrate.
+  function isLessonComplete(code) {
+    var s = Storage.getPath('strategyMastery.' + code, 'not_started');
+    return s === 'developing' || s === 'mastered' || s === 'elite';
+  }
+
   function getDrillLevel(code) {
     return Storage.getPath('drillLevels.' + code, 1);
   }
@@ -259,6 +269,8 @@ const DrillEngineModule = (() => {
     limit = limit || 6;
     var allCodes = Object.keys(Storage.getStrategyMastery());
     return allCodes
+      // Only lesson-complete strategies are drillable (see isLessonComplete)
+      .filter(function(code) { return isLessonComplete(code); })
       .map(function(code) { return { code: code, score: getRecommendationScore(code) }; })
       .sort(function(a, b) { return b.score - a.score; })
       .slice(0, limit)
@@ -502,7 +514,12 @@ const DrillEngineModule = (() => {
       + '<div class="de-section-header">'
       + '<span class="section-subhead" style="margin:0">Recommended Next</span>'
       + '</div>'
-      + '<div class="de-rec-grid">' + recCards + '</div>'
+      + (recCards
+        ? '<div class="de-rec-grid">' + recCards + '</div>'
+        : '<div class="card card-body" style="margin-bottom:20px;color:var(--text-secondary,#555);font-size:0.9rem;">'
+          + 'All drills are locked until their lessons are complete. Head to the '
+          + '<a href="#" onclick="Router.navigate(\'/strategy-course\');return false;">Strategy Course</a>'
+          + ' and pass a lesson\'s practice questions at 80%+ to unlock its drill.</div>')
 
       + '<div class="de-section-header">'
       + '<span class="section-subhead" style="margin:0">All Strategies</span>'
@@ -521,10 +538,13 @@ const DrillEngineModule = (() => {
         var state = mastery[code] || 'not_started';
         var level = getDrillLevel(code);
         var ready = isReadyForSession(code);
+        var unlocked = isLessonComplete(code);
         html += '<button class="de-code-chip" data-drill="' + code + '"'
           + ' style="border-color:' + masteryColor(state) + '"'
-          + ' title="' + masteryLabel(state) + ' &middot; Lv.' + level + (ready ? ' &middot; Ready' : ' &middot; Cooling down') + '">'
-          + code + (ready ? '' : '⏳')
+          + ' title="' + (unlocked
+              ? masteryLabel(state) + ' &middot; Lv.' + level + (ready ? ' &middot; Ready' : ' &middot; Cooling down')
+              : 'Locked — complete the ' + code + ' lesson first') + '">'
+          + code + (unlocked ? (ready ? '' : '⏳') : '🔒')
           + '</button>';
       });
       html += '</div></div>';
@@ -536,6 +556,10 @@ const DrillEngineModule = (() => {
     document.querySelectorAll('[data-drill]').forEach(function(el) {
       el.addEventListener('click', function() {
         var code = el.dataset.drill;
+        if (!isLessonComplete(code)) {
+          UI.toast('Complete the ' + code + ' lesson in the Strategy Course first — pass its practice questions at 80%+ to unlock this drill.', 'info', 'Lesson First', 4000);
+          return;
+        }
         if (!isReadyForSession(code)) {
           var d = daysUntilReady(code);
           UI.toast(code + ' needs ' + d + ' more day' + (d !== 1 ? 's' : '') + ' to reset. Spaced repetition is working!', 'info');
@@ -566,6 +590,15 @@ const DrillEngineModule = (() => {
         var level   = getDrillLevel(code);
         var ready   = isReadyForSession(code);
         var waitDays = daysUntilReady(code);
+        var unlocked = isLessonComplete(code);
+        var action;
+        if (!unlocked) {
+          action = '<button class="btn btn-ghost btn-sm" data-lesson="' + code + '">🔒 Lesson first</button>';
+        } else if (ready) {
+          action = '<button class="btn btn-accent btn-sm" data-start="' + code + '">Drill</button>';
+        } else {
+          action = '<span class="de-cooldown-pill">+' + waitDays + 'd</span>';
+        }
         return '<div class="de-picker-row" data-drill="' + code + '">'
           + '<span class="strategy-code-badge">' + code + '</span>'
           + '<div class="de-picker-info">'
@@ -574,9 +607,7 @@ const DrillEngineModule = (() => {
           + levelBarHtml(level)
           + '</div>'
           + '<div class="de-picker-action">'
-          + (ready
-            ? '<button class="btn btn-accent btn-sm" data-start="' + code + '">Drill</button>'
-            : '<span class="de-cooldown-pill">+' + waitDays + 'd</span>')
+          + action
           + '</div></div>';
       }).join('');
       sectionsHtml += '<div class="de-picker-section"><div class="section-subhead">' + section + '</div>' + rows + '</div>';
@@ -596,6 +627,13 @@ const DrillEngineModule = (() => {
       btn.addEventListener('click', function(e) {
         e.stopPropagation();
         openSession(btn.dataset.start);
+      });
+    });
+    document.querySelectorAll('[data-lesson]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        UI.toast('Unlock ' + btn.dataset.lesson + ' by completing its lesson — pass the practice questions at 80%+.', 'info', 'Lesson First', 4000);
+        Router.navigate('/strategy-course');
       });
     });
   }
@@ -807,6 +845,10 @@ const DrillEngineModule = (() => {
   }
 
   function openSession(code) {
+    if (!isLessonComplete(code)) {
+      UI.toast('Complete the ' + code + ' lesson in the Strategy Course first — pass its practice questions at 80%+ to unlock this drill.', 'info', 'Lesson First', 4000);
+      return;
+    }
     if (!DE_QUESTIONS[code] || !DE_QUESTIONS[code].length) {
       UI.toast('No questions available for ' + code + '.', 'warning'); return;
     }
@@ -824,9 +866,14 @@ const DrillEngineModule = (() => {
   }
 
   // ── QUESTION BANK ──────────────────────────────────────── //
-  // 5 questions per strategy × 51 strategies = 255 questions
+  // DE_QUESTIONS — the Module 6 mastery bank. One drill pack per DRILLABLE
+  // strategy: 49 of the 54 (MN1–MN5 are excluded from drill-question format).
+  // RULING-A-GATED: whether MN1–MN5 get scenario-format packs here is decided
+  // at Batch 8 — revisit together with skills-check.js ("49 drillable").
+  // Current contents: 255 questions across 51 legacy pools, sizes uneven
+  // post-RE-KEY 2026-07-05 (5 pools empty; G8–G10 pools arrive in Batch 4;
+  // every drillable pool reaches ≥5 questions during content Batches 1–8).
   // Harder / more applied than Module 5 mini-drills
-  // Added in batches via Edit calls below
 
   const DE_QUESTIONS = {
     // ── BATCH 1: Universal (U1–U7) + Reading Elimination (R1–R8) ──
@@ -1211,7 +1258,7 @@ const DrillEngineModule = (() => {
     return DE_QUESTIONS[code] ? DE_QUESTIONS[code].slice() : [];
   }
 
-  return { render: render, reset: reset, getQuestions: getQuestions, shuffleChoices: shuffleChoices };
+  return { render: render, reset: reset, getQuestions: getQuestions, shuffleChoices: shuffleChoices, isLessonComplete: isLessonComplete };
 
 })();
 window.DrillEngineModule = DrillEngineModule;

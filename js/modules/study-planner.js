@@ -23,7 +23,7 @@ var StudyPlannerModule = (function () {
     { week:12, theme:'Weak Area Focus',                    focus:'adaptive',        bluebook:null, desc:'Targeted drilling on your lowest-mastery strategies.' },
     { week:13, theme:'Band 5→6 Push',                      focus:'adaptive',        bluebook:null, desc:'Hard questions in your weakest skill areas. This is the accelerator.' },
     { week:14, theme:'Mixed Practice + CLT Prep',          focus:'mixed',           bluebook:null, desc:'Mixed question sets + CLT-specific strategies and mindset.' },
-    { week:15, theme:'Final Strategy Review',              focus:'review',          bluebook:null, desc:'Lock in all 51 strategies. Full Skills Check. Identify any last gaps.' },
+    { week:15, theme:'Final Strategy Review',              focus:'review',          bluebook:null, desc:'Lock in all 54 strategies. Full Skills Check. Identify any last gaps.' },
     { week:16, theme:'Pre-PSAT Benchmark',                 focus:'review',          bluebook:10, desc:'Bluebook Test 10. Your pre-PSAT score. Celebrate how far you\'ve come.' },
   ];
 

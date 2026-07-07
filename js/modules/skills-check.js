@@ -14,18 +14,21 @@ var SkillsCheckModule = (function () {
   var STRONG_THRESHOLD = 0.80;  // ≥80% = strong
   var WEAK_THRESHOLD   = 0.60;  // <60% = needs work
 
-  // All 51 strategy codes in section order
+  // All 54 strategy codes in section order
   var ALL_CODES = [
     'U1','U2','U3','U4','U5','U6','U7',
     'R1','R2','R3','R4','R5','R6','R7','R8',
     'R9','R10','R11','R12','R13',
-    'G1','G2','G3','G4','G5','G6','G7',
+    'G1','G2','G3','G4','G5','G6','G7','G8','G9','G10',
     'M1','M2','M3','M4','M5','M6','M7','M8','M9',
     'M10','M11','M12','M13','M14','M15',
     'C1','C2','C3','C4',
     'MN1','MN2','MN3','MN4','MN5',
   ];
 
+  // Canonical taxonomy (matches strategy-course.js STRATEGIES / master brief).
+  // Rewritten 2026-07-07: the previous maps described the pre-RE-KEY drill
+  // bank contents (e.g. C1 "Data Interpretation"), not the actual strategies.
   var SECTION_OF = {
     U1:'Universal',U2:'Universal',U3:'Universal',U4:'Universal',U5:'Universal',U6:'Universal',U7:'Universal',
     R1:'Reading: Elimination',R2:'Reading: Elimination',R3:'Reading: Elimination',R4:'Reading: Elimination',
@@ -33,27 +36,29 @@ var SkillsCheckModule = (function () {
     R9:'Reading: Passage',R10:'Reading: Passage',R11:'Reading: Passage',R12:'Reading: Passage',R13:'Reading: Passage',
     G1:'Grammar & Writing',G2:'Grammar & Writing',G3:'Grammar & Writing',G4:'Grammar & Writing',
     G5:'Grammar & Writing',G6:'Grammar & Writing',G7:'Grammar & Writing',
+    G8:'Grammar & Writing',G9:'Grammar & Writing',G10:'Grammar & Writing',
     M1:'Math Core',M2:'Math Core',M3:'Math Core',M4:'Math Core',M5:'Math Core',
     M6:'Math Core',M7:'Math Core',M8:'Math Core',M9:'Math Core',
     M10:'Desmos',M11:'Desmos',M12:'Desmos',M13:'Desmos',M14:'Desmos',M15:'Desmos',
-    C1:'Charts & Data',C2:'Charts & Data',C3:'Charts & Data',C4:'Charts & Data',
-    MN1:'Mindset & Mixed',MN2:'Mindset & Mixed',MN3:'Mindset & Mixed',MN4:'Mindset & Mixed',MN5:'Mindset & Mixed',
+    C1:'CLT',C2:'CLT',C3:'CLT',C4:'CLT',
+    MN1:'Mindset & Test-Day',MN2:'Mindset & Test-Day',MN3:'Mindset & Test-Day',MN4:'Mindset & Test-Day',MN5:'Mindset & Test-Day',
   };
 
   var STRATEGY_NAMES = {
-    U1:'Process of Elimination',U2:'Predicted Answer',U3:'Anchor to Text',
-    U4:'Backsolving (Universal)',U5:'Plug In Numbers (Universal)',U6:'Rate/Ratio Reasoning',U7:'Time Management',
-    R1:'Main Purpose',R2:'Author Tone',R3:'Evidence Support',R4:'Detail Reference',
-    R5:'Inference',R6:'Vocabulary in Context',R7:'Textual Evidence',R8:'Cross-Text Comparison',
-    R9:'Thesis Identification',R10:'Argument Structure',R11:'Counterargument',R12:'Data Integration',R13:'Style & Purpose',
-    G1:'Subject-Verb Agreement',G2:'Pronoun Agreement',G3:'Comma Splices & Fragments',G4:'Apostrophes & Possession',
-    G5:'Transitions',G6:'Modifiers',G7:'Parallel Structure',
-    M1:'Backsolving (Math)',M2:'Plug In Numbers (Math)',M3:'Percent & Proportion',M4:'Algebra Without Algebra',
-    M5:'Ballpark & Eliminate',M6:'Unit Tracking',M7:'Re-Read the Question',M8:'Number Properties',M9:'Geometry & Estimation',
-    M10:'Desmos Basics',M11:'Systems via Graph',M12:'Parameter Sliders',M13:'Expression Equivalence',
-    M14:'Equation from Graph',M15:'Desmos vs. Algebra',
-    C1:'Data Interpretation',C2:'Statistical Analysis',C3:'Study Design',C4:'Descriptive Stats',
-    MN1:'Strategy Meta',MN2:'Algebra Review',MN3:'Geometry Review',MN4:'Advanced Topics',MN5:'Mixed Review',
+    U1:'Think Like the Test Maker',U2:'Module 1 Mastery Protocol',U3:'Difficulty-Weighted Decision Making',
+    U4:'Skip and Return',U5:'Predict Before You Read Choices',U6:'Error Pattern Logging',U7:'60-Second Rule',
+    R1:'Extreme Language Elimination',R2:'Recycled Language Trap',R3:'Half-Right Elimination',R4:'Could-Be-True Trap',
+    R5:'Opposite Trap',R6:'True But Irrelevant',R7:'Comparison Fallacy Flag',R8:'Scope Trap Detection',
+    R9:'Find the Motive Method',R10:'Keyword Anchoring',R11:'Paragraph Function Labeling',R12:'One-Line Headline Test',R13:'Paraphrase Before Looking',
+    G1:'Pattern Recognition Over Rule Naming',G2:'Shortest Answer Rule',G3:'Transition Logic Map',G4:'Punctuation Decision Tree',
+    G5:'Subject-Verb Isolation',G6:'Pronoun Antecedent Hunt',G7:'Verb Tense Consistency Check',
+    G8:'Modifier Placement',G9:'Parallel Structure',G10:'Diction Precision',
+    M1:'Backsolving',M2:'Plug In Numbers',M3:'Plug In 100 for Percentages',M4:'Solve Algebra Without Algebra',
+    M5:'Answer Choice Ballparking',M6:'Units-First Analysis',M7:'Trap Answer Arithmetic',M8:'Properties Over Procedures',M9:'Geometry Visual Estimation',
+    M10:'Visualize Don\'t Calculate',M11:'Systems → Graph Intersection',M12:'Slider Method for Parameters',M13:'Equivalency Visual Proof',
+    M14:'Point-Testing for Graph Questions',M15:'When NOT to Use Desmos',
+    C1:'Classical Text Tone Mapping',C2:'Argument Structure Recognition',C3:'Latin & Greek Root Decoding',C4:'Classical Allusion Context',
+    MN1:'Module Reset Protocol',MN2:'Confidence Calibration',MN3:'Careless Error Audit',MN4:'Last 5 Questions Protocol',MN5:'Test Anxiety Reframe',
   };
 
   // ── Module state ─────────────────────────────────────────────────────────
@@ -382,7 +387,7 @@ var SkillsCheckModule = (function () {
     var cards = [
       { label: 'Last Check', value: last ? fmtDate(last.date) : 'Never', icon: '📅' },
       { label: 'Last Score', value: prevAcc !== null ? prevAcc + '%' : '—', icon: '🎯' },
-      { label: 'Active Strategies', value: stats.activeCount + ' / 51', icon: '📋' },
+      { label: 'Active Strategies', value: stats.activeCount + ' / 54', icon: '📋' },
       { label: 'Est. Questions', value: stats.estimatedQ || 0, icon: '❓' },
     ];
 
@@ -402,7 +407,11 @@ var SkillsCheckModule = (function () {
     infoBox.innerHTML =
       '<h3 style="font-size:0.88rem;font-weight:700;color:var(--text-primary);margin-bottom:8px;">What this checks</h3>' +
       '<ul style="margin:0;padding-left:18px;color:var(--text-secondary);font-size:0.83rem;line-height:1.8;">' +
-      '<li>Which of 51 strategies you\'re applying correctly</li>' +
+      // 49 = drillable strategies (54 total minus MN1–MN5, which are excluded
+      // from drill-question format). RULING-A-GATED: revisit at Batch 8
+      // together with the DE_QUESTIONS header in drill-engine.js — if MN
+      // scenario questions stay in Module 6, this becomes 54.
+      '<li>Which of 49 drillable strategies you\'re applying correctly</li>' +
       '<li>Are drill improvements transferring to mixed question sets?</li>' +
       '<li>Any new weak areas emerging?</li>' +
       '</ul>' +

@@ -512,7 +512,7 @@ const PerformanceDashboardModule = (() => {
 
     // ── Strategy Mastery Map ────────────────────────────────
     wrap.appendChild(sectionHeader('Strategy Mastery Map',
-      'All 51 strategies. Click any cell to open the Drill Engine.'));
+      'All 54 strategies. Click any cell to open the Drill Engine.'));
 
     var mastCard = card('padding:20px;');
 

@@ -1,5 +1,5 @@
 // ── strategy-course.js ────────────────────────────────────────────────────
-// Module 5: Strategy Course — 51 techniques, mastery engine, 4-screen UI
+// Module 5: Strategy Course — 54 techniques, mastery engine, 4-screen UI
 // ─────────────────────────────────────────────────────────────────────────
 const StrategyCourseModule = (() => {
   'use strict';
@@ -865,6 +865,60 @@ const StrategyCourseModule = (() => {
   let drillSession  = null;
   let containerEl   = null;
 
+  // ── COURSE ORDER ──────────────────────────────────────────────────────────
+  // The lesson sequence is FIXED by default (post-brief ruling 2026-07-07):
+  // Universal → Reading Elim → Reading Passage → Grammar → Math Core →
+  // Desmos → CLT → Mindset. The optional 'weakest_first' setting reorders
+  // ONLY sections B–G by band weakness; A (Universal) is always first,
+  // H (Mindset) always last. Order affects presentation and the "up next"
+  // pointer only — it never locks or unlocks content.
+  const SECTION_SEQUENCE = ['A','B','C','D','E','F','G','H'];
+  const SECTION_SKILLS = {
+    B: ['main_idea','inference'],
+    C: ['main_idea','inference'],
+    D: ['grammar','transitions','punctuation'],
+    E: ['linear_algebra','advanced_math','data_analysis'],
+    F: ['linear_algebra','advanced_math'],
+    G: ['clt_tone','clt_argument','clt_roots','clt_allusion'],
+  };
+
+  // Pure function (bands object + mode string in, section id array out) so it
+  // can be verified in isolation. Sections with no band data sort to the back
+  // of the reorderable block, keeping their fixed relative order.
+  function getSectionOrder(bands, mode) {
+    if (mode !== 'weakest_first') return SECTION_SEQUENCE.slice();
+    const middle = SECTION_SEQUENCE.slice(1, 7); // B–G
+    const score = {};
+    middle.forEach(id => {
+      const vals = (SECTION_SKILLS[id] || [])
+        .map(sk => bands && bands[sk])
+        .filter(v => v != null);
+      score[id] = vals.length ? vals.reduce((a, v) => a + v, 0) / vals.length : Infinity;
+    });
+    const reordered = middle.slice().sort((a, b) => {
+      const d = score[a] - score[b];
+      if (d < 0) return -1;
+      if (d > 0) return 1;
+      return middle.indexOf(a) - middle.indexOf(b);
+    });
+    return ['A'].concat(reordered, ['H']);
+  }
+
+  function getActiveSectionOrder() {
+    const mode = (Storage.getSettings().courseOrder || 'fixed');
+    return getSectionOrder(Storage.getBands(), mode);
+  }
+
+  // Universal is a hard prerequisite: every other section's lessons stay
+  // closed until all 7 U-codes are at developing or beyond. Browsing is
+  // allowed; enforcement happens at lesson-open.
+  function isSectionUnlocked(sectionId, masteryArg) {
+    if (sectionId === 'A') return true;
+    const m = masteryArg || Storage.getStrategyMastery();
+    return SECTIONS.A.codes.every(c =>
+      m[c] === 'developing' || m[c] === 'mastered' || m[c] === 'elite');
+  }
+
   // ── MASTERY ENGINE ────────────────────────────────────────────────────────
 
   function getMastery(code) {
@@ -882,7 +936,7 @@ const StrategyCourseModule = (() => {
     else if (newState === 'not_started') newState = 'in_progress';
     Storage.updateStrategyMastery(code, newState);
     const history = Storage.getPath(`masteryHistory.${code}`, []);
-    history.push({ date: new Date().toISOString(), accuracy, level: ['not_started','in_progress','developing','mastered','elite'].indexOf(newState) });
+    history.push({ date: new Date().toISOString(), accuracy, level: ['not_started','in_progress','developing','mastered','elite'].indexOf(newState), source: 'strategy_course' });
     Storage.setPath(`masteryHistory.${code}`, history);
     Storage.addSession({ strategy: code, questionsAttempted: total, questionsCorrect: correct, accuracy, durationMinutes: Math.round(drillSession.durationMs / 60000), bandLevel: 0 });
     Storage.addPoints(correct * 10);
@@ -956,25 +1010,35 @@ const StrategyCourseModule = (() => {
 
   function buildOverview() {
     const mastery = Storage.getStrategyMastery();
-    const totalStrategies = 51;
+    const totalStrategies = 54;
     const done   = Object.values(mastery).filter(s => s==='developing'||s==='mastered'||s==='elite').length;
     const started= Object.values(mastery).filter(s => s==='in_progress').length;
     const pct    = Math.round((done/totalStrategies)*100);
 
-    // Top recommended strategies
-    const allCodes = Object.keys(STRATEGIES);
-    const recommended = allCodes
-      .filter(c => mastery[c] !== 'mastered' && mastery[c] !== 'elite')
-      .sort((a,b) => getRecommendationScore(b) - getRecommendationScore(a))
-      .slice(0,3);
+    const order = getActiveSectionOrder();
+    const weakestFirst = (Storage.getSettings().courseOrder || 'fixed') === 'weakest_first';
 
-    const recCards = recommended.map(code => {
+    // "Up next" — the next incomplete lessons walking the active course order
+    // (sections in order, codes in canonical order within each section).
+    // Replaces the old band-sorted recommendations; band prioritization now
+    // lives in the optional 'weakest_first' course-order setting.
+    const upNext = [];
+    order.forEach(secId => {
+      SECTIONS[secId].codes.forEach(code => {
+        const st = mastery[code] || 'not_started';
+        if (upNext.length < 3 && st !== 'developing' && st !== 'mastered' && st !== 'elite') {
+          upNext.push(code);
+        }
+      });
+    });
+
+    const recCards = upNext.map((code, i) => {
       const s = STRATEGIES[code];
       const sec = SECTIONS[s.section];
       const state = mastery[code] || 'not_started';
       return `<div class="strategy-rec-card" data-action="open-strategy" data-code="${code}">
         <div class="rec-card-top" style="border-left:3px solid ${sec.color}">
-          <span class="rec-badge" style="background:${sec.color}20;color:${sec.color}">${sec.shortName}</span>
+          <span class="rec-badge" style="background:${sec.color}20;color:${sec.color}">${i === 0 ? 'Continue course' : sec.shortName}</span>
           ${masteryBadge(state)}
         </div>
         <div class="rec-card-name">${s.name}</div>
@@ -982,9 +1046,11 @@ const StrategyCourseModule = (() => {
       </div>`;
     }).join('');
 
-    const sectionCards = Object.values(SECTIONS).map(sec => {
+    const sectionCards = order.map(secId => {
+      const sec = SECTIONS[secId];
       const prog = getSectionProgress(sec.id);
       const pctSec = prog.total > 0 ? Math.round((prog.done/prog.total)*100) : 0;
+      const locked = !isSectionUnlocked(sec.id, mastery);
       return `<div class="section-card" data-action="open-section" data-section="${sec.id}">
         <div class="section-card-header">
           <div class="section-icon" style="background:${sec.color}20;color:${sec.color}">
@@ -997,6 +1063,7 @@ const StrategyCourseModule = (() => {
           <div class="section-ring">${progressRing(pctSec)}</div>
         </div>
         <div class="section-desc">${sec.desc}</div>
+        ${locked ? '<div class="section-locked-hint" style="font-size:0.78rem;color:var(--color-neutral-500,#888);margin-top:6px;">🔒 Lessons unlock after Universal Strategies</div>' : ''}
         <div class="section-bar">
           <div class="section-bar-fill" style="width:${pctSec}%;background:${sec.color}"></div>
         </div>
@@ -1007,7 +1074,7 @@ const StrategyCourseModule = (() => {
       <div class="page-header mb-6">
         <div>
           <h1 class="page-title">Strategy Course</h1>
-          <p class="page-subtitle">51 techniques. Learn them, drill them, master them.</p>
+          <p class="page-subtitle">54 techniques. Learn them, drill them, master them.</p>
         </div>
         <div class="overview-stats">
           <div class="stat-chip"><span class="stat-num">${done}</span><span class="stat-label">Developing+</span></div>
@@ -1023,8 +1090,8 @@ const StrategyCourseModule = (() => {
         <span class="progress-banner-label">${pct}% of strategies at developing or above</span>
       </div>
 
-      ${recommended.length > 0 ? `
-      <div class="section-subhead mb-3">Recommended for you — based on your score bands</div>
+      ${upNext.length > 0 ? `
+      <div class="section-subhead mb-3">Up next in your course${weakestFirst ? ' — weakest sections first' : ''}</div>
       <div class="rec-grid mb-6">${recCards}</div>` : ''}
 
       <div class="section-subhead mb-3">All Sections</div>
@@ -1048,8 +1115,9 @@ const StrategyCourseModule = (() => {
     if (!sec) return '<p>Section not found.</p>';
     const mastery = Storage.getStrategyMastery();
 
-    // Sort codes by recommendation score (highest first)
-    const sorted = [...sec.codes].sort((a,b) => getRecommendationScore(b) - getRecommendationScore(a));
+    // Canonical code order — the lesson sequence is fixed (2026-07-07 ruling);
+    // band-based prioritization lives in the courseOrder setting, not here.
+    const sorted = [...sec.codes];
 
     const rows = sorted.map(code => {
       const s = STRATEGIES[code];
@@ -1186,15 +1254,34 @@ const StrategyCourseModule = (() => {
 
   // ── SCREEN: DRILL ─────────────────────────────────────────────────────────
 
+  // Serve-time choice shuffle. The stored mini-drill bank is position-biased
+  // (audited 2026-07-07: 64% of answers stored at B, 69% longest-correct), so
+  // choices must never be served in stored order. Returns a copy with c/a
+  // remapped; the DRILLS source bank is never mutated. Local implementation
+  // so this module stays independently loadable (mirrors drill-engine.js).
+  function shuffleChoices(q) {
+    const order = q.c.map((_, i) => i);
+    for (let i = order.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const t = order[i]; order[i] = order[j]; order[j] = t;
+    }
+    const copy = {};
+    for (const k in q) { if (Object.prototype.hasOwnProperty.call(q, k)) copy[k] = q[k]; }
+    copy.c = order.map(idx => q.c[idx]);
+    copy.a = order.indexOf(q.a);
+    return copy;
+  }
+
   function startDrill(code) {
-    drillSession = { code, qIndex: 0, correct: 0, answers: [], startMs: Date.now(), durationMs: 0 };
+    const questions = (DRILLS[code] || []).map(shuffleChoices);
+    drillSession = { code, questions, qIndex: 0, correct: 0, answers: [], startMs: Date.now(), durationMs: 0 };
     showScreen(buildDrillQuestion(code, 0), wireDrill);
   }
 
   function buildDrillQuestion(code, qIndex) {
     const s  = STRATEGIES[code];
     const sec= SECTIONS[s.section];
-    const qs = DRILLS[code];
+    const qs = drillSession ? drillSession.questions : (DRILLS[code] || []);
     if (!qs || qIndex >= qs.length) return buildDrillResults(code);
     const q = qs[qIndex];
     const total = qs.length;
@@ -1232,8 +1319,7 @@ const StrategyCourseModule = (() => {
     containerEl.querySelectorAll('.drill-choice').forEach(btn => {
       btn.addEventListener('click', () => {
         const chosen = parseInt(btn.dataset.choice);
-        const code = drillSession.code;
-        const q = DRILLS[code][drillSession.qIndex];
+        const q = drillSession.questions[drillSession.qIndex];
         const correct = chosen === q.a;
         if (correct) drillSession.correct++;
         drillSession.answers.push({ chosen, correct });
@@ -1263,7 +1349,7 @@ const StrategyCourseModule = (() => {
     if (nextBtn) {
       nextBtn.addEventListener('click', () => {
         drillSession.qIndex++;
-        const qs = DRILLS[drillSession.code];
+        const qs = drillSession.questions;
         if (drillSession.qIndex >= qs.length) {
           drillSession.durationMs = Date.now() - drillSession.startMs;
           const newState = recordDrillResult(drillSession.code, drillSession.correct, qs.length);
@@ -1278,7 +1364,9 @@ const StrategyCourseModule = (() => {
   function buildDrillResults(code, newState) {
     const s = STRATEGIES[code];
     const sec = SECTIONS[s.section];
-    const qs = DRILLS[code] || [];
+    // Use the session's shuffled copies so the "Correct: X" letters match
+    // what was actually displayed during the drill.
+    const qs = drillSession ? drillSession.questions : (DRILLS[code] || []);
     const correct = drillSession ? drillSession.correct : 0;
     const total = qs.length;
     const pct = total > 0 ? Math.round((correct/total)*100) : 0;
@@ -1333,6 +1421,10 @@ const StrategyCourseModule = (() => {
   function openLesson(code) {
     const s = STRATEGIES[code];
     if (!s) return;
+    if (!isSectionUnlocked(s.section)) {
+      UI.toast('Complete the Universal Strategies section first — those techniques are used inside every lesson that follows.', 'info', 'Universal First', 4000);
+      return;
+    }
     activeStrategy = code;
     activeSection = activeSection || s.section;
     view = 'lesson';
@@ -1358,7 +1450,9 @@ const StrategyCourseModule = (() => {
     drillSession = null;
   }
 
-  return { render, reset };
+  // getSectionOrder / isSectionUnlocked / shuffleChoices exposed for
+  // mechanical verification (pure functions; no UI dependencies).
+  return { render, reset, getSectionOrder, isSectionUnlocked, shuffleChoices };
 
 })();
 window.StrategyCourseModule = StrategyCourseModule;
