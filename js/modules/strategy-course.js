@@ -577,58 +577,53 @@ const StrategyCourseModule = (() => {
     },
     MN1:{ code:'MN1', name:'Module Reset Protocol', section:'H',
       bands:[1,2,3,4,5,6,7], skills:['main_idea','inference','grammar','transitions','punctuation','linear_algebra','advanced_math','data_analysis'],
-      explain:'When frustration or anxiety peaks during a module: (1) Stop the current question, (2) Take 3 slow breaths, (3) Say internally "This is information. Next question." Then move at full attention.',
-      why:'Frustration compounds. One hard question that triggers anxiety affects the next 3-5 questions if you don\'t break the cycle.',
-      trigger:'Any moment of "I have no idea," frustration, or the sensation of spiraling. Don\'t wait until you\'ve lost 3 questions.',
-      mistake:'Pushing through frustration without resetting. You can\'t think clearly when emotionally activated.',
-      example:{ context:'Mindset', passage:null,
-        q:'Krystal enters Module 2 Math and immediately gets a problem she\'s never seen before. Heart racing. What is the correct next action?',
-        c:['Keep working — she can\'t afford 15 seconds','Execute the 3-step reset: stop, 3 breaths, "this is information," continue','Skip the module entirely','Flag every remaining question and guess'],
-        a:1, steps:['Racing heart = activated stress response. Working memory is degraded.','15 seconds of reset costs 15 seconds. One question answered clearly beats 5 answered anxiously.','Stop → 3 slow breaths → "This is information. Next question."','Return to the problem with fresh attention. It may be more approachable than it seemed.'] }
+      explain:'Here\'s what nobody tells you before the SAT: a hard question doesn\'t just cost you its own points. If you let it rattle you, it quietly costs you the next three questions too — because anxiety degrades the working memory you need to think clearly. The Module Reset Protocol is a 15-second circuit breaker: (1) stop working on the current question, (2) three slow breaths — not fast, not nervous, slow, (3) say internally "This is information. Next question." Then re-engage. You\'re not giving up on the question; you\'re reclaiming the mental clarity you need to answer it. The reset is the move, not a pause from the move.',
+      why:'Frustration compounds. One question that trips you up raises cortisol, narrows your focus, and loads your attention with self-monitoring ("Am I running out of time? Is this section going badly?"). The next question gets a degraded version of you — shorter working memory, faster and sloppier pattern-matching, more reactive. The three-breath reset isn\'t a ritual for its own sake; it interrupts the spiral before it bleeds into the next question. Research on cognitive performance under stress consistently shows brief recovery pauses restore decision quality. Fifteen seconds now protects the next five minutes.',
+      trigger:'Use this the moment you notice any of these: your heart rate jumped, you\'ve read the same question twice and still have no plan, you catch yourself thinking "I\'m going to fail this section," or frustration is bleeding from one question into the next. Don\'t wait until you\'ve lost three questions in a row. Earlier is always cheaper.',
+      mistake:'Pushing through without resetting — because it feels like toughness. It isn\'t. You can\'t think your way out of activated stress by working harder. The reset costs 15 seconds and often returns working clarity worth several questions. Skipping it is the expensive choice, not the efficient one.',
+      scenario:{ situation:'Krystal is 8 questions into Module 2 Math. Question 9 is a problem type she doesn\'t recognize — exponential functions in a table format she\'s never seen laid out this way. Her heart jumps. She reads it twice. It still doesn\'t click. She feels the thought forming: "I\'m bad at math. I\'m going to blank on this whole section."',
+        walkthrough:['She notices the spiral starting. "I\'m bad at math" isn\'t a fact — it\'s her stress response looking for an explanation. She doesn\'t argue with it. She just stops.','She sets her mental pencil down. No more re-reading Question 9.','Three slow breaths. In through the nose, out through the mouth. Not frantic — slow. She doesn\'t need to feel calm. She just needs the exhale.','She says to herself quietly: "This is information. This question is hard. Next question."','She makes her best guess on Q9, flags it in Bluebook, and opens Q10 with fresh attention. Q10 turns out to be one she knows how to start.'],
+        reframe:'"One hard question doesn\'t define this section or this test. I hit a wall, I reset, I moved on. That\'s the move."' }
     },
     MN2:{ code:'MN2', name:'Confidence Calibration', section:'H',
       bands:[1,2,3,4,5,6,7], skills:['main_idea','inference','grammar','transitions','punctuation','linear_algebra','advanced_math','data_analysis'],
-      explain:'When two choices survive elimination, you don\'t need certainty to choose. You need more-than-random odds — and elimination already gave you those. Commit to your best analysis.',
-      why:'Over-certainty-seeking causes students to change correct answers. First instinct after careful analysis is right more often than second-guessing.',
-      trigger:'When you\'ve used all elimination strategies and still have 2 choices. Make a decision and move on.',
-      mistake:'Changing answers because of vague uncertainty — not because you have new evidence.',
-      example:{ context:'Mindset', passage:null,
-        q:'Krystal is left with choices B and D after elimination. Gut says D. She marks D, then changes to B with no new reasoning. Probable outcome?',
-        c:['She likely improved her score','Changes from careful analysis are random — no benefit','She likely lowered her score — changing from a carefully considered choice is wrong more often than right','She should always change when uncertain'],
-        a:2, steps:['Research on test-taking: students who change answers from careful initial analysis are wrong more often than right.','Exception: new information (re-read and found a misreading). That\'s a valid reason to change.','No new information + vague feeling = do NOT change. Krystal should have committed to D.','C describes the research finding.'] }
+      explain:'After careful elimination, you\'re sitting with two choices and you feel maybe 60% confident in one of them. That\'s the signal to commit — not to keep analyzing. Elimination already moved you from a 25% coin flip to something better, and a 60% read after real analysis beats random. The enemy here isn\'t doubt — it\'s changing your answer for no real reason. The rule that protects you: only change an answer if you can name a specific reason — a misread you caught, a fact you just recalled. If you can\'t point to something concrete and it\'s only a feeling of unease, that\'s anxiety talking, not insight — and a change on a feeling is more likely to add a mistake than fix one. Your carefully-reasoned first answer is not a guess. It\'s the output of your best thinking. Protect it.',
+      why:'When you first answered, your brain was working the problem. When you come back to change it under time pressure, your brain is working on anxiety — and anxiety is a poor selector. It mimics certainty but it\'s running a different algorithm. The one exception: when you return and catch something specific — a word you misread, a rule you suddenly remember — that\'s real new information and it earns a change. "I just feel like B" is not new information. That\'s your stress response trying to reduce uncertainty by taking an action. Notice it, name it, don\'t let it vote.',
+      trigger:'Use this when you\'ve done real elimination work and still have two choices left. It\'s also your guide at the end of a module when you\'re tempted to revisit flagged questions: only reopen them if you have a specific new insight — a caught misread, a recalled fact — not a free-floating feeling of unease.',
+      mistake:'Treating doubt as evidence. Doubt is normal — you will feel uncertain on multiple questions during every test you take. That feeling is not a signal that your answer is wrong. It\'s your stress response looking for something to do with its energy. Notice it. Name it. Commit to your analysis anyway.',
+      scenario:{ situation:'Krystal is reviewing flagged questions with 3 minutes left. She flagged Q14 because she was between choices B and D. She went with D. Looking at it now with fresh eyes, B is suddenly jumping out at her — but she can\'t actually point to anything specific she missed before. She\'s about to switch to B.',
+        walkthrough:['She pauses before clicking. She asks herself: "Do I have new information, or just new anxiety?"','She re-reads the question stem and both choices carefully. Nothing new surfaces — no misread, no missed detail.','The pull toward B is time pressure, not insight. She knows this because she can\'t name what changed.','She leaves D and moves to the next flagged question.'],
+        reframe:'"I picked D because my analysis said D. I don\'t have a reason to change it — I have a feeling. Those aren\'t the same thing. D stays."' }
     },
     MN3:{ code:'MN3', name:'Careless Error Audit', section:'H',
       bands:[1,2,3,4,5,6,7], skills:['main_idea','inference','grammar','transitions','punctuation','linear_algebra','advanced_math','data_analysis'],
-      explain:'Spend the last 2-3 minutes re-reading your answers to the 5-7 easiest questions. Careless errors cluster on easy questions because your brain disengages on "obvious" problems.',
-      why:'Careless errors on easy questions cost more than hard-question errors because the easy ones were solvable. Auditing easy questions is the highest ROI in the last 2 minutes.',
-      trigger:'Last 2-3 minutes of any module. Not for hard questions — for easy ones.',
-      mistake:'Using the last 2 minutes to revisit hard questions you already spent 2+ minutes on. That time is already spent.',
-      example:{ context:'Mindset', passage:null,
-        q:'Krystal solves correctly for x=8 but the question asks for "3x − 2." She submits x=8. What type of error is this?',
-        c:['Content gap','Trap triggered — 8 is a planted wrong answer','Careless error — solved correctly but didn\'t finish reading the question','Time pressure'],
-        a:2, steps:['She correctly solved x=8. No content gap.','She stopped at x without completing: 3(8)−2=22. Right sub-problem, wrong final answer.','This is careless: she misread or stopped reading the question prematurely.','The careless error audit catches this: re-read "what does the question actually ask for?"'] }
+      explain:'Careless errors are the cruelest kind of mistake because the knowledge was there — you just didn\'t use it. They cluster on easy questions because your brain goes on autopilot for problems it finds obvious, and autopilot has one consistent failure mode: it answers the question it expects, not the question it was asked. "Solve for x" becomes the assumed task — even when the question asked for 2x − 3. The Careless Error Audit is a targeted 2-minute sweep of your 5–7 easiest answers at the end of the module. One check per answer: "Did I answer what the question actually asked?" Not "is my math right?" — just: finish-line check.',
+      why:'Points lost to careless errors on easy questions are the most expensive mistakes on the test — they were recoverable, solvable, yours. Hard-question misses are expected and already built into your strategy. Easy-question misses are the ones that sting afterward, when you get the score back and think "I knew that." Two seconds of deliberate re-reading per easy answer is the highest-ROI activity in the last two minutes of any module.',
+      trigger:'Use this in the final 2–3 minutes of a module when you have no unanswered questions remaining. Go specifically to the easiest questions you answered — early in the module, the ones that took you under a minute. That\'s where careless errors hide. Not the hard ones you wrestled with; those already got your best effort.',
+      mistake:'Spending the last 2 minutes re-examining hard questions you already gave 2+ minutes to during the module. That time is already banked — those problems have your best thinking. Re-examining them under time pressure is unlikely to crack them, and it takes you away from the easy questions where a 5-second re-read could recover a real point.',
+      scenario:{ situation:'Krystal finishes Module 1 Math with 3 minutes left and no unanswered questions. She goes back to Q3 — an early linear equation she knocked out quickly. Her work: 2x + 5 = 17, so x = 6. Her submitted answer: 6. The question asked for "the value of 4x − 1."',
+        walkthrough:['She does the Careless Error Audit: re-reading what each question actually asked, not just checking her math.','She reads Q3: "What is the value of 4x − 1?" Her submitted answer is 6. But 6 is x, not 4x − 1.','She computes: 4(6) − 1 = 23. She changes her answer to 23.','She moves to Q4. Same check: "Did I answer what this asked?" Yes. This one\'s fine.'],
+        reframe:'"That was a recoverable point — and I got it back. The math was right the whole time. I just needed to finish reading the question."' }
     },
     MN4:{ code:'MN4', name:'Last 5 Questions Protocol', section:'H',
       bands:[1,2,3,4,5,6,7], skills:['main_idea','inference','grammar','transitions','punctuation','linear_algebra','advanced_math','data_analysis'],
-      explain:'If time is running out with 5+ questions left: (1) Guess all remaining immediately, (2) Return to the easiest remaining and answer carefully, (3) Continue to next easiest until time runs out.',
-      why:'Blank answers and guessed answers have the same floor score. Rushing 5 questions at 30% accuracy = same as guessing, but you missed your best remaining questions.',
-      trigger:'When you have fewer than 4 minutes for 5+ questions remaining.',
-      mistake:'Trying to carefully answer all remaining in order. You\'ll run out and leave 2-3 blank.',
-      example:{ context:'Mindset', passage:null,
-        q:'Krystal has 4 minutes left with 7 questions remaining in Math M2. She averages 90s per question. Correct protocol?',
-        c:['Answer 1-7 as fast as possible','Guess all 7 immediately, then answer the easiest ones carefully','Leave all 7 blank','Skip every other question'],
-        a:1, steps:['At 90s each, she has time for ~2-3 more carefully.','First: guess all 7 immediately (takes 30 seconds). No question left blank.','Then: find the easiest remaining. Answer it fully and carefully.','Continue until time. Result: 2-3 careful + 4-5 guessed >> rushing all 7 carelessly.'] }
+      explain:'When the clock is running out and you have 5 or more questions still untouched, there\'s a move almost every student doesn\'t make — and it costs them. The instinct is to rush through the remaining questions in order. But racing a hard question at 20% accuracy produces the same result as guessing, just louder and more stressful. The Last 5 Questions Protocol reorganizes the endgame: guess on all remaining questions first (30 seconds, no blanks), then go back to the easiest remaining and work it fully, then the next easiest. You\'ve locked in a chance on everything and converted your remaining time into real answers on your best-odds questions.',
+      why:'A blank and a guess have the same floor — both might be wrong. But a guess has a non-zero chance of being right; a blank is mathematically zero. The protocol guarantees no blanks first, then reorders your last minutes around expected value: the easiest remaining question is your best investment of time, not question 22 just because it comes before question 23 in the queue.',
+      trigger:'Use this when you have fewer than 4 minutes left and 5 or more questions still untouched. At that math — 4 minutes, 5 questions — you cannot answer all of them at full effort. Don\'t try. Execute: guess all, then rescue easiest first.',
+      mistake:'Trying to answer all remaining questions "normally" in order under time pressure. The math doesn\'t work — you\'ll spend your last 90 seconds on a hard question in the middle of the queue, then notice you have 30 seconds and three more untouched. Guessing all first takes 30 seconds and removes that outcome forever.',
+      scenario:{ situation:'Krystal has 3 minutes left in Module 2 Math. Questions 18–22 are unanswered. Q18 looks like a percent problem she\'s seen before. Q19 might be doable. Q20–22 look like heavy systems-of-equations work. She can feel herself about to start rushing through them in order.',
+        walkthrough:['She stops. "I have 3 minutes and 5 questions. I can\'t carefully answer all five. Execute the protocol."','She guesses on Q18, Q19, Q20, Q21, Q22 — one click each. About 25 seconds. No question is blank.','She goes back to Q18 — the percent problem she recognized. She works it fully and carefully. Correct in about 75 seconds.','Q19: 70 seconds left. She reads it — a two-step word problem she can set up. She works it and locks in an answer.','Time. She submitted answers on all 5 questions: 2 fully worked, 3 guessed. Better than anything that would\'ve happened if she\'d just sprinted.'],
+        reframe:'"I didn\'t panic into a rush. I guaranteed no blanks first, then spent my remaining time where I had the best odds. That\'s the play."' }
     },
     MN5:{ code:'MN5', name:'Test Anxiety Reframe', section:'H',
       bands:[1,2,3,4,5,6,7], skills:['main_idea','inference','grammar','transitions','punctuation','linear_algebra','advanced_math','data_analysis'],
-      explain:'Pre-test arousal (racing heart, nervous energy) is neurologically identical to excitement. The label you give it determines its effect. Research shows that saying "I am excited" before high-stakes tasks improves performance.',
-      why:'Anxiety reframe works because you\'re not suppressing the response — you\'re redirecting its meaning. "My body is preparing to perform" is accurate and useful.',
-      trigger:'Morning of the SAT or any moment of pre-test nervousness. Execute the reframe actively, not passively.',
-      mistake:'Trying to "calm down." Suppression doesn\'t work and often increases arousal. Reframe instead.',
-      example:{ context:'Mindset', passage:null,
-        q:'On the morning of the SAT, Krystal\'s heart is racing and she feels jittery. What should she say to herself?',
-        c:['"Calm down — there\'s nothing to be nervous about"','"I must be sick — this will go badly"','"My body is getting ready. I\'m excited to show what I know"','"I should leave early — I\'m too anxious to test"'],
-        a:2, steps:['The physiological state: elevated heart rate, nervous energy. This is arousal — identical to excitement.','Suppression ("calm down") tries to eliminate the arousal. Research shows this backfires.','Catastrophizing amplifies the negative interpretation. Eliminates B and D.','Reframe: "My body is getting ready. I\'m excited." Redirects the same arousal into productive energy.'] }
+      explain:'On the morning of the SAT, your body might be doing things that feel alarming: heart pounding, stomach tight, hands a little shaky. Here\'s what the research actually says — that physical state is neurologically almost identical to excitement. The difference between anxiety and excitement isn\'t the physiology; it\'s the story you tell yourself about what the feeling means. "I\'m nervous and something is wrong" activates avoidance. "My body is preparing to perform" activates approach. You don\'t need to feel calm to score well. You don\'t need to suppress the energy. You just need to point it correctly: "I\'m excited. I\'ve prepared. Let\'s go." Psychologist Alison Wood Brooks found that saying "I am excited" before a high-stakes task measurably improves performance compared to trying to calm down.',
+      why:'Trying to calm down before a high-stakes task usually backfires. Suppressing arousal requires mental energy and often amplifies awareness of the very thing you\'re trying to stop feeling — the suppression paradox. The reframe works because it doesn\'t fight the arousal; it redirects its meaning. Same heartbeat, different label. And the label is honest: your preparation was real, the test matters, the adrenaline means you\'re ready. "Excited" isn\'t a lie — it\'s a more accurate label than "terrified," and it\'s the one that actually helps.',
+      trigger:'Use this on the morning of any test — SAT, PSAT, or practice. Also use it during test prep any time "I can\'t do this" self-talk shows up. You don\'t save the reframe for test day and hope it works; you practice it now, until it\'s a groove your brain knows how to find when it counts.',
+      mistake:'Trying to "calm down" instead of reframing. If you\'ve ever sat before a test saying "calm down, calm down" and it didn\'t work — that\'s why. Suppression is fighting the feeling with the same nervous system generating the feeling. The reframe doesn\'t fight anything. It accepts the arousal and gives it a more useful name. One works; the other usually makes it worse.',
+      scenario:{ situation:'The morning of the SAT. Krystal wakes up at 6am and her stomach is already in knots. Before she\'s even out of bed, she\'s running through everything she\'s worried about: word problems, the reading passage, whether her score will go down. Her heart is racing.',
+        walkthrough:['She notices the physical feeling and names it: not "I\'m anxious" but "my body is activated." That\'s different.','She tries the reframe out loud: "I\'m excited. I\'ve worked hard for this. My body is ready to go."','She takes a minute to pray: "God, I\'ve done the work. Help me be present and clear today. Whatever happens, I\'m in your hands — and that\'s okay."','She gets up, eats breakfast, and drives to the test center with the energy pointed forward instead of inward.','Walking into the test room, she catches the stomach flutter again. She thinks: "Excited. Ready. Let\'s go." — and this time it lands.'],
+        reframe:'"The nerves mean this matters to me — and I\'ve prepared for something that matters. I don\'t need to feel calm. I need to show up and go."' }
     },
   }; // end STRATEGIES
 
@@ -977,31 +972,11 @@ const StrategyCourseModule = (() => {
       { p:'The committee has patched the old statute for thirty years, clause upon clause, exception upon exception. One member, weary of amendments, proposed at last "an Alexandrian remedy: stop untying and cut."', q:'The "Alexandrian remedy" alludes to the Gordian knot and proposes', c:['dissolving the committee entirely and starting over','consulting the historical precedents more closely','one decisive stroke in place of further unpicking','delaying the question until the members\' tempers cool'], a:2, e:'Alexander, offered the famously unpickable Gordian knot, cut it with his sword: the emblem of solving by bold stroke what patience cannot untangle. Applied here: replace the statute outright instead of amending further. The other readings drop the knot entirely.' },
       { p:'A passage calls a philanthropist "a modern Midas, though kinder to his daughters." A student, recalling only that Midas was rich, reads the phrase as pure praise and misses the irony the question asked about.', q:'What does Allusion Context require beyond name-recognition?', c:['Ignoring any allusion that involves mythological rather than real figures','Counting exactly how many times the allusive name appears in the passage','Checking the passage\'s composition date against the myth\'s first origin','The story, not the name: Midas\'s golden touch ruined what he loved'], a:3, e:'Midas\'s wealth is half the story; the curse is the other half — his touch turned even his daughter to gold. "Kinder to his daughters" only lands if you carry the whole tale: the sentence praises the giving while hinting that wealth can destroy what it loves. Allusions are compressed stories; unpack the story, not just the name.' },
     ],
-    MN1:[
-      { p:null, q:'You\'re in Module 2 Math and just got two questions wrong in a row. You can feel frustration building. What is the FIRST step of the Module Reset Protocol?', c:['Immediately guess on the next 3 questions to save time','Stop working on the current question — do not proceed while activated','Re-read your last two questions to find where you went wrong','Flag all remaining questions'], a:1, e:'First step: STOP. You cannot reset while still working. Put down your mental pencil, then execute: 3 breaths → "This is information. Next question."' },
-      { p:null, q:'Why does the Module Reset Protocol include the phrase "This is information"?', c:['It\'s a distraction technique','It reframes a hard question from a threat ("I\'m failing") to data ("this question reveals something about my current weak areas") — reducing the emotional charge','It helps you remember the content of the question','It\'s a breathing cue'], a:1, e:'"This is information" interrupts the catastrophizing loop ("I\'m going to fail") by recategorizing the difficulty as neutral data. It\'s a cognitive reframe, not just a phrase.' },
-      { p:null, q:'How long should the full Module Reset Protocol take?', c:['5-10 minutes','About 30 minutes — you need to fully calm down before continuing','About 15 seconds — stop, 3 breaths, "this is information," next question','It varies — take as long as you need'], a:2, e:'15 seconds. Stop → 3 breaths (~9 seconds) → "this is information" (~3 seconds) → next question. Quick, not meditative. You\'re trading 15 seconds for better performance on the remaining questions.' },
-    ],
-    MN2:[
-      { p:null, q:'You have two remaining choices and have spent 75 seconds on careful elimination. You feel 60% confident in Choice B. What should you do?', c:['Keep analyzing until you reach 90% confidence','Change to Choice D — lower confidence means your gut is telling you something is wrong','Select Choice B and move on — 60% after careful analysis is better than random, and further analysis is unlikely to help','Flag it and return at the end to decide'],  a:2, e:'60% confidence after careful analysis = better than the 25-50% you started with. Additional analysis on a question you\'ve already studied carefully rarely increases accuracy and always costs time.' },
-      { p:null, q:'When is it appropriate to CHANGE an answer you\'ve already submitted?', c:['Whenever you feel uncertain','Never — first instinct is always right','When you re-read the question and realize you misread something specific, or when you have a new insight you didn\'t consider before','Always change every answer in the last 2 minutes'], a:2, e:'Valid reason to change: new information (you misread, you noticed a word you missed). Not valid: general anxiety, "I just feel like the other one is right," time pressure.' },
-      { p:null, q:'A student changes 8 answers in the last 5 minutes "because they seemed uncertain." She changed 5 from correct to incorrect and 3 from incorrect to correct. What does this illustrate?', c:['Changing answers is always beneficial','The research finding: changes made from vague uncertainty (not new information) tend to move from correct to incorrect more often than the reverse','She should have changed more answers','Students should never review their answers'], a:1, e:'This is the empirical pattern in test-taking research. Anxiety-driven changes, not information-driven changes, tend to lower scores. Commit to carefully analyzed answers.' },
-    ],
-    MN3:[
-      { p:null, q:'Where in the module should the Careless Error Audit be applied?', c:['The hardest 5-7 questions — those are most likely to have errors','The easiest 5-7 questions — careless errors cluster there because the brain disengages on "obvious" problems','Every single question, starting from #1','Only on questions you flagged for review'], a:1, e:'Careless errors cluster on easy questions — the brain goes on autopilot and misreads "what is 3x+1 when x=5" as just "what is x." The audit catches these fast.' },
-      { p:null, q:'During the Careless Error Audit, what is the one question to ask about each answer you review?', c:['"Is my calculation mathematically correct?"','"Did I answer what the question actually asked, not what I assumed it asked?"','"Is my answer the longest choice?"','"Did I use the right formula?"'], a:1, e:'"Did I answer what the question actually asked?" catches: solving for x when asked for 2x, finding area when asked for perimeter, answering the wrong part of a two-part question.' },
-      { p:null, q:'You have 3 minutes left at the end of a module with no unanswered questions. The best use of that time is:', c:['Attempt to re-solve the 3 hardest questions from scratch','Audit the 5-6 easiest questions you answered — check that you answered exactly what was asked','Re-read all 27 questions sequentially','Close your test and rest'], a:1, e:'Auditing easy questions for careless errors has the highest ROI. Hard questions you spent 2+ minutes on are unlikely to improve with 30 more seconds. Easy questions with careless errors are solvable.' },
-    ],
-    MN4:[
-      { p:null, q:'You have 2 minutes left with 4 questions remaining. Your FIRST action should be:', c:['Answer question #1 of the remaining 4 as carefully as possible','Guess on all 4 immediately (30 seconds), then answer the easiest one carefully with the remaining time','Leave all 4 blank — you don\'t have enough time','Flag all 4 and submit'], a:1, e:'Guess all first (no blanks), then rescue the easiest carefully. Leaving any blank when you can guess = throwing away a free chance at a correct answer.' },
-      { p:null, q:'Why is guessing on all remaining questions BEFORE carefully answering any of them the correct protocol?', c:['It satisfies the "no blank" rule first, guaranteeing at least a chance at each; then you maximize accuracy on the easiest one with remaining time','It is faster than reading each question','The SAT gives bonus points for guessing quickly','There is no advantage — just answer in order'], a:0, e:'A blank answer and a guess have the same floor outcome (possibly wrong), but a guess has a chance of being right. Guaranteeing no blanks first, then maximizing accuracy on the easiest, is optimal.' },
-      { p:null, q:'You guessed on all remaining questions and now have 75 seconds left. There are 3 unreviewed questions. How do you prioritize?', c:['Review #1 first (first question remaining)','Review the one that appeared easiest when you guessed on it','Review #3 last (last question)','Re-guess all 3 randomly again'], a:1, e:'Prioritize the easiest-looking remaining question — highest probability of converting a guess to a correct careful answer in the time available.' },
-    ],
-    MN5:[
-      { p:null, q:'Research on performance under arousal conditions suggests that students who say "I am excited" before a high-stakes test perform how compared to students who say "I am calm"?', c:['Worse — excitement increases anxiety','Better — reframing arousal as excitement improves performance more than trying to suppress it','The same — the statement has no effect','Much worse — they are more distracted'], a:1, e:'This is from research by Alison Wood Brooks and others. Reframing arousal as excitement outperforms suppression because it redirects the same physiological state rather than fighting it.' },
-      { p:null, q:'On the morning of the SAT, Krystal\'s palms are sweating and her heart is racing. The Test Anxiety Reframe says she should interpret this as:', c:['"I am sick and should postpone the test"','"My body is in a heightened state of preparation and readiness — this is how I perform at my best"','"I need to calm down immediately or I will fail"','"Something is wrong — calm people don\'t sweat"'], a:1, e:'Elevated heart rate, sweating, nervous energy = arousal. The reframe: "My body is getting ready to perform." This is physiologically accurate and performance-enhancing.' },
-      { p:null, q:'Why does "calm down" often fail as a pre-test strategy?', c:['Because calmness is associated with poor test performance','Because the attempt to suppress physiological arousal often amplifies it (suppression paradox), whereas reframing redirects it productively','Because the SAT rewards anxious students','Because calming techniques take too long'], a:1, e:'The suppression paradox: actively trying to not feel something often increases awareness of it. Reframing (same energy, different label) sidesteps this by accepting and redirecting the arousal.' },
-    ],
+    MN1:[],
+    MN2:[],
+    MN3:[],
+    MN4:[],
+    MN5:[],
   }; // end DRILLS
 
   // ── MODULE STATE ──────────────────────────────────────────────────────────
@@ -1322,17 +1297,52 @@ const StrategyCourseModule = (() => {
     if (!s) return '<p>Strategy not found.</p>';
     const sec = SECTIONS[s.section];
     const state = getMastery(code);
-    const ex = s.example;
-
-    const stepsHtml = (ex.steps||[]).map((step,i) =>
-      `<div class="example-step"><span class="step-num">${i+1}</span><span>${step}</span></div>`
-    ).join('');
-
-    const choicesHtml = ex.c.map((ch,i) =>
-      `<div class="example-choice ${i===ex.a ? 'correct-choice':''}">${i===ex.a?'✓':String.fromCharCode(65+i)}. ${ch}</div>`
-    ).join('');
 
     const hasDrills = DRILLS[code] && DRILLS[code].length > 0;
+
+    let practiceHtml;
+    if (s.scenario) {
+      const sc = s.scenario;
+      const walkthroughHtml = (sc.walkthrough||[]).map((step,i) =>
+        `<div class="example-step"><span class="step-num">${i+1}</span><span>${step}</span></div>`
+      ).join('');
+      practiceHtml = `<div class="worked-example mb-6">
+        <div class="example-header">
+          <span class="example-label">Scenario</span>
+          <span class="example-context">Mindset · Coached</span>
+        </div>
+        <div class="example-passage">${sc.situation}</div>
+        <div class="example-walkthrough">
+          <div class="walkthrough-label">Applying the strategy</div>
+          ${walkthroughHtml}
+        </div>
+        <div class="lesson-card" style="margin-top:1rem;border-left:3px solid ${sec.color}">
+          <div class="lesson-card-label"><i data-lucide="message-circle"></i> Your reframe</div>
+          <div class="lesson-card-body" style="font-style:italic">${sc.reframe}</div>
+        </div>
+      </div>`;
+    } else {
+      const ex = s.example;
+      const stepsHtml = (ex.steps||[]).map((step,i) =>
+        `<div class="example-step"><span class="step-num">${i+1}</span><span>${step}</span></div>`
+      ).join('');
+      const choicesHtml = ex.c.map((ch,i) =>
+        `<div class="example-choice ${i===ex.a ? 'correct-choice':''}">${i===ex.a?'✓':String.fromCharCode(65+i)}. ${ch}</div>`
+      ).join('');
+      practiceHtml = `<div class="worked-example mb-6">
+        <div class="example-header">
+          <span class="example-label">Worked Example</span>
+          <span class="example-context">${ex.context}</span>
+        </div>
+        ${ex.passage ? `<div class="example-passage">${ex.passage}</div>` : ''}
+        <div class="example-question">${ex.q}</div>
+        <div class="example-choices">${choicesHtml}</div>
+        <div class="example-walkthrough">
+          <div class="walkthrough-label">Step-by-step walkthrough</div>
+          ${stepsHtml}
+        </div>
+      </div>`;
+    }
 
     return `<div style="padding:var(--content-padding)">
       <div class="page-nav mb-4">
@@ -1365,19 +1375,7 @@ const StrategyCourseModule = (() => {
         </div>
       </div>
 
-      <div class="worked-example mb-6">
-        <div class="example-header">
-          <span class="example-label">Worked Example</span>
-          <span class="example-context">${ex.context}</span>
-        </div>
-        ${ex.passage ? `<div class="example-passage">${ex.passage}</div>` : ''}
-        <div class="example-question">${ex.q}</div>
-        <div class="example-choices">${choicesHtml}</div>
-        <div class="example-walkthrough">
-          <div class="walkthrough-label">Step-by-step walkthrough</div>
-          ${stepsHtml}
-        </div>
-      </div>
+      ${practiceHtml}
 
       <div class="lesson-actions">
         ${hasDrills ? `<button class="btn btn-primary btn-lg" data-action="start-drill" data-code="${code}">
