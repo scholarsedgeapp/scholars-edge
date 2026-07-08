@@ -57,7 +57,7 @@ const PerformanceDashboardModule = (() => {
     { id: 'A', name: 'Universal',        codes: ['U1','U2','U3','U4','U5','U6','U7'] },
     { id: 'B', name: 'Reading Elim.',    codes: ['R1','R2','R3','R4','R5','R6','R7','R8'] },
     { id: 'C', name: 'Reading Passage',  codes: ['R9','R10','R11','R12','R13'] },
-    { id: 'D', name: 'Grammar',          codes: ['G1','G2','G3','G4','G5','G6','G7'] },
+    { id: 'D', name: 'Grammar',          codes: ['G1','G2','G3','G4','G5','G6','G7','G8','G9','G10'] },
     { id: 'E', name: 'Math Core',        codes: ['M1','M2','M3','M4','M5','M6','M7','M8','M9'] },
     { id: 'F', name: 'Desmos',           codes: ['M10','M11','M12','M13','M14','M15'] },
     { id: 'G', name: 'CLT',              codes: ['C1','C2','C3','C4'] },
@@ -577,7 +577,7 @@ const PerformanceDashboardModule = (() => {
           this.style.boxShadow    = '';
           this.style.zIndex       = '';
         };
-        cell.onclick = function() { Router.navigate('/drill-engine'); };
+        cell.onclick = function() { Router.navigate(sec.id === 'H' ? '/strategy-course' : '/drill-engine'); };
         codeRow.appendChild(cell);
       });
       secWrap.appendChild(codeRow);
